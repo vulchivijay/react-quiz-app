@@ -4,7 +4,7 @@ import Quiz from '../util/questions';
 export const QuizContext = createContext({
   currentQuestionIndex: 0,
   userAnswers: [],
-  answerStatus: null,
+  answerStatus: [],
   handleSelectedAnswer: () => {},
   handleSkipAnswer: () => {},
   quizCompleted: false,
@@ -15,10 +15,12 @@ function QuizReducer(state, action) {
   if (action.type === 'SELECTED_ANSWER') {
     const updatedAnswers = [...state.userAnswers];
     updatedAnswers.push(action.payload);
+    const updatedStatus = [...state.answerStatus];
+    updatedStatus.push(action.payload === Quiz[state.currentQuestionIndex].answers[0] ? 'correct' : action.payload === null ? 'skipped' : 'wrong')
     return {
       ...state,
       userAnswers: updatedAnswers,
-      answerStatus: action.payload === Quiz[state.currentQuestionIndex].answers[0] ? 'correct' : action.payload === null ? 'skipped' : 'wrong',
+      answerStatus: updatedStatus,
       currentQuestionIndex: state.currentQuestionIndex + 1,
       quizCompleted: updatedAnswers.length === Quiz.length,
     };
@@ -26,10 +28,12 @@ function QuizReducer(state, action) {
   if (action.type === 'SKIPPED_ANSWER') {
     const updatedAnswers = [...state.userAnswers];
     updatedAnswers.push(action.payload);
+    const updatedStatus = [...state.answerStatus];
+    updatedStatus.push('skipped');
     return {
       ...state,
       userAnswers: updatedAnswers,
-      answerStatus: 'skipped',
+      answerStatus: updatedStatus,
       currentQuestionIndex: state.currentQuestionIndex + 1,
       quizCompleted: updatedAnswers.length === Quiz.length,
     };
@@ -41,7 +45,7 @@ export default function QuizContextProvider({ children }) {
   const [questionState, questionDispatch] = useReducer(QuizReducer, {
     currentQuestionIndex: 0,
     userAnswers: [],
-    answerStatus: null,
+    answerStatus: [],
     quizCompleted: false,
   });
 
