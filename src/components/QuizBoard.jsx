@@ -15,6 +15,8 @@ export default function QuizBoard() {
   const { handleSelectedAnswer } = Context;
   const { handleSkipAnswer } = Context;
   const { quizCompleted } = Context;
+  const { userAnswers } = Context;
+  const { answerStatus } = Context;
 
   if (quizCompleted) {
     return <SummaryBoard
