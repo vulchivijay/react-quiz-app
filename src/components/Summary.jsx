@@ -1,11 +1,11 @@
-import ResultIcon from './../assets/quiz-complete.png'
+import QuizCompleted from './../assets/quiz-complete.png'
 
-export default function Summary() {
+export default function SummaryBoard() {
   return (
     <div id='summary'>
-      <img src={ResultIcon} alt='Result Icon' />
-      <h2>Title</h2>
-      <ol>
+      <img src={QuizCompleted} alt='Quiz Completed' />
+      <h2>Quiz Complete</h2>
+      {/* <ol>
         <li>li 1</li>
         <li>li 2</li>
       </ol>
@@ -18,7 +18,7 @@ export default function Summary() {
         <p></p>
         <div className='number'>Number</div>
         <div className='text'>Text</div>
-      </div>
+      </div> */}
     </div>
   )
 }

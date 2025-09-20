@@ -1,22 +1,13 @@
-import { useState } from 'react';
-import Quiz from './util/questions';
+import QuizContextProvider from './context/QuizContext';
 import Header from "./components/Header";
-import QuizBoard from "./components/QuizBoard";
-import Summary from "./components/Summary";
+import QuizBoard from './components/QuizBoard';
 
 function App() {
-  const [startQuiz, setStartQuiz] = useState(false);
-
-  const handleStartQuiz = () => {
-    // console.log('handle start quiz!');
-    setStartQuiz(true);
-  }
-
   return (
-    <>
-      <Header startQuizBtn={handleStartQuiz} isBtnVisible={startQuiz} />
+    <QuizContextProvider>
+      <Header />
       <QuizBoard />
-    </>
+    </QuizContextProvider>
   )
 }
 
